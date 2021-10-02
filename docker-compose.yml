@@ -1,0 +1,29 @@
+version: "3.9"
+services:
+  privacyidea-init:
+    build: "./privacyidea-init"
+    depends_on:
+      - mysql
+    volumes:
+        - ./test:/etc/privacyidea
+    environment:
+      PRIVACYIDEA_ADMIN_USER: admin
+      PRIVACYIDEA_ADMIN_PASSWORD: test
+  privacyidea-server:
+    build: "./privacyidea-server"
+    depends_on:
+      - privacyidea-init
+    volumes:
+        - ./test:/etc/privacyidea
+    ports:
+      - "5000:5000"
+  mysql:
+    image: mysql/mysql-server:5.7
+    restart: always
+    environment:
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+      MYSQL_ROOT_PASSWORD: test
+      MYSQL_DATABASE: privacyidea
+    ports:
+      - 3306:3306
