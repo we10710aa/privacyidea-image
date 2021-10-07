@@ -3,7 +3,8 @@ FROM we10710aa/privacyidea-base:${PRIVACY_IDEA_VERSION}
 
 WORKDIR /privacyidea
 
-RUN pip install pymysql-sa PyMySQL
+RUN pip install PyMySQL
+RUN pip install pymysql-sa
 
 COPY init.sh /privacyidea/
 
